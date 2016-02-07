@@ -123,74 +123,17 @@
 
 <!------------------------- ВВОДНАЯ ИНФОРМАЦИЯ О ТУРНИРЕ ----------------------------->
 
-<table class="t_tbl_info">
-    <tr>
-        <td style="width: 1px;">
-            <img src="<?php echo $t['img']; ?>" style="height: 120px;">
-        </td>
-        <td style="padding: 5px 30px; text-align: center; width: 100px;">
-            <span style="font-weight: bold; font-size: x-large"><?php echo HTML::encode($t['name']); ?></span>
-            <br /><br />
-            <span><?php if($t['game']!=null) echo '('.HTML::encode($t['game']).')'; ?></span>
-        </td>
-        <td>
-            <table style="width: 100%">
-                <tr>
-                    <td>
-                        <strong>Админ: </strong><span style="color: #666666"><?php echo User::name($t['admin_id']); ?></span>.
-                        <?php if($t['site']!=null){ ?><strong>Сайт: </strong><a href="<?php echo $t['site']; ?>"><?php echo HTML::encode($t['site']); ?></a><?php } ?>
-                    </td>
-                    <td style="text-align: right;">
-                        <?php
-                        if(!Yii::$app->user->isGuest){
-                            if($t->admin_id==Yii::$app->user->id){ ?>
-                                <a href="<?php echo Yii::$app->urlManager->createUrl(['t/update', 'id'=>$t['id']]) ?>">Настройки турнира</a>
-                            <?php }else{ ?>
-                                <span id="link"><a onclick="add_link()" style="cursor: pointer;">добавить в "Избранные"</a></span>
-                            <?php }
-                        }?>
-                    </td>
-                </tr>
-            </table>
-
-            <span style="font-style: italic; "><?php echo HTML::encode($t['opisanie']); ?></span>
-
-            <hr />
-            <div>
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="text-align: left;">
-                            <strong>Турнирные сетки:</strong>
-                        </td>
-                        <?php if($t->admin_id==Yii::$app->user->id){ ?>
-                        <td style="text-align: right;">
-                            <a href="<?php echo Yii::$app->urlManager->createUrl(['t/createseason']).'/'.$t['id']; ?>">
-                                (+) добавить новую турнирную сетку
-                            </a>
-                        </td>
-                        <?php } ?>
-                    </tr>
-                </table>
-
-                <?php foreach(array_reverse($seasons) as $one){ ?>
-                    <a style="cursor: pointer;" onclick="show_season(<?php echo $one['id']; ?>)"><?php echo HTML::encode($one['name']); ?></a>;
-                <?php } ?>
-
-            </div>
-        </td>
-    </tr>
-</table>
+<?=$this->render('view/_header.php', ['t' => $t, 'seasons' => $seasons])?>
 
 
 
-
-
+<!-- Ц И К Л   Т У Р Н И Р Н Ы Х    С Е Т О К -->
 <div style="min-height: 350px;">
-<?php ///////////////////       Ц И К Л   С Е З О Н О В      ///////////////////
-
-
+<?php
 $counter = 1; // счетчик сезонов
 foreach($seasons as $season){
+
+    // делаем все сетки невидимыми, но последнюю сетку видимой
     $display = 'none';
     if($counter == count($seasons)) $display = 'block';
     $counter++;
@@ -200,7 +143,7 @@ foreach($seasons as $season){
 
 
 
-        <!------------------ шапка-полоса сезона ----------------->
+        <!------------------ шапка-полоса сетки ----------------->
         <table style="width: 100%; background-color: #e38d13; text-align: center; margin-bottom: 20px; margin-top: 20px; font-size: x-large; font-weight: bold;">
             <tr>
                 <td style="text-align: left; padding-left: 5px;">
@@ -221,7 +164,7 @@ foreach($seasons as $season){
                         if($season['unit_type']==2) echo 'команд';
                         ?>
                         (изменено: <span id="time_update<?php echo $season['id']; ?>"><?php echo date('d.m.Y в H:i', $season['time_update']); ?></span>)
-                        <?php if($t->admin_id==Yii::$app->user->id) echo '<a href="'.Yii::$app->urlManager->createUrl(['t/updateseason', 'id'=>$season['id']]).'">изменить сезон</a>'; ?>
+                        <?php if($t->admin_id==Yii::$app->user->id) echo '<a href="'.Yii::$app->urlManager->createUrl(['t/updateseason', 'id'=>$season['id']]).'">Настройки сетки</a>'; ?>
                     </span>
                 </td>
             </tr>
@@ -251,7 +194,7 @@ foreach($seasons as $season){
             $l['1/16'] = '<th class="th1"></th>';
         //}
 
-        $s = []; // аррай сезона
+        $s = []; // массив сезона с участниками и другими, для передачи в рендер сетки
 
         /////////// U N I T /////////////////////////////////////////////////////
         // ----------------------------------------------------------------------
@@ -347,7 +290,8 @@ foreach($seasons as $season){
 
 
         /////////////////////////  подключаемая сетка турнира  ///////////////////
-        echo $this->render('_net'.$season['net_type'], ['l'=>$l, 's'=>$s,]); ?>
+        echo $this->render('nets/_net'.$season['net_type'], ['l'=>$l, 's'=>$s,]); ?>
+
     </div>
 
 

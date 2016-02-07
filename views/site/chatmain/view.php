@@ -7,7 +7,9 @@
 
     <div style="margin: 3px 0;">
         <input type="text" id="text_chat" placeholder="Введите сообщение... и нажмите Enter" style="width: 100%;">
-        <!--<button onclick="enter_chat()" style="width: 12%"> >>> </button>-->
+        <!--
+        <button onclick="enter_chat()" style="width: 12%"> >>> </button>
+        -->
     </div>
 
     <div id="msgs" style="background-color: #ffffff;
@@ -16,17 +18,19 @@
                                             max-height: 850px;
                                             overflow: auto;">
         <?php foreach($msgs as $msg){
-            echo $this->renderAjax('_message', ['msg' => $msg]);
+            echo $this->render('_message', ['msg' => $msg]);
         } ?>
     </div>
 
 </div>
+
 
 <script src='http://5.63.152.110:1984/socket.io/socket.io.js'></script>
 <script> var socket = io.connect('http://5.63.152.110:1984');
 
     ////////////////////////////         AVTOLOAD      ///////////////////////////
     window.onload = function(){
+
         // нажатие Enter в чате
         $("#text_chat").keydown(function(e) {
             if(e.which == 13){
@@ -52,19 +56,34 @@
             //document.querySelector('#msgs').scrollTop = document.querySelector('#msgs').scrollHeight;
         });
 
-
         document.querySelector('#msgs').scrollTop = document.querySelector('#msgs').scrollHeight;
 
-    }
+
+        // появление надписи - Создать турнир
+        $('#menuPlus').on("mouseenter", function(){
+            $('#menuMsgCreateT').text('(cоздать турнир)');
+        });
+        $('#menuPlus').on("mouseleave", function(){
+            $('#menuMsgCreateT').text('');
+        });
+
+        // появление надписи - Избранные турниры
+        $('#menuLink').on("mouseenter", function(){
+            $('#menuMsgLink').text('(избранные турниры)');
+        });
+        $('#menuLink').on("mouseleave", function(){
+            $('#menuMsgLink').text('');
+        });
+    };
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
-    /* отправка сообщений при нажатии на кнопку
+    // отправка сообщений при нажатии на кнопку
      function enter_chat(){
      var text = $('#text_chat').val();
      $.ajax({
      type: "GET",
-     url: '<?php //echo \Yii::$app->urlManager->createUrl(['chatmain/ajaxenterchatmain']); ?>',
+     url: '<?php echo \Yii::$app->urlManager->createUrl(['chatmain/ajaxenterchatmain']); ?>',
      data: "text="+text,
      success: function(data){
      //alert(data);
@@ -73,6 +92,6 @@
      });
      $('#text_chat').val('');
      }
-     */
+
 
 </script>

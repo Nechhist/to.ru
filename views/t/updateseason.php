@@ -213,7 +213,7 @@ $s['time3place'] = '<td class="td_time">'.$form->field($season, 'time3place')->t
     </tr>
 </table>
 
-<?php echo $this->render('_update_net'.$season->net_type, ['s'=>$s]); ?>
+<?php echo $this->render('nets/_update_net'.$season->net_type, ['s'=>$s]); ?>
 
 
 

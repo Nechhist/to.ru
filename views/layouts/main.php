@@ -9,21 +9,7 @@ AppAsset::register($this);
 /* @var $content string */
 
 
-
-//////////////////// COLOR /////////////////////
-$bgcolor1 = '#ffffff'; // главный фон
-$bgcolor2 = '#ed9c28'; // оранжевая линии
-$bgcolor3 = '#7a43b6'; // фиолет линии
-$bgcolor4 = '#ffffff'; // наводка на ссылку
-$bgcolor5 = '#39b3d7'; // обводка внешней линии таблиц
-
-$linktextcolor1 = $bgcolor3; // текст ненажатая ссылка
-$linktextcolor2 = $bgcolor1; // текст нажатая ссылка
-$linkbgcolor1 = $linktextcolor2; // фон ненажатая ссылка
-$linkbgcolor2 = $bgcolor4; // фон нажатая ссылка
-
-/////////////////////////////////////////////////
-$count_messages=0;
+$count_messages = 0;
 ?>
 
 
@@ -36,11 +22,9 @@ $count_messages=0;
     <?php echo Html::csrfMetaTags() ?>
 
     <!-- Bootstrap CSS -->
-
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <ssscript src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></ssscript>
 
     <title><?= Html::encode($this->title) ?></title>
 
@@ -63,7 +47,7 @@ $count_messages=0;
 
         /* -------------------------- L I N K ----------------------- */
 
-        a{
+        a {
             margin: 2px;
             padding: 1px;
             color: <?=Yii::$app->params['color']['link_text_light']?>;
@@ -72,7 +56,7 @@ $count_messages=0;
             font-weight: bold;
         }
 
-        a:hover{
+        a:hover {
             color: <?=Yii::$app->params['color']['link_text_dark']?>;
             background-color: <?=Yii::$app->params['color']['link_bg_light']?>;
         }
@@ -149,7 +133,7 @@ $count_messages=0;
 <?php $this->beginBody() ?>
 
     <!-- МЕНЮ (header)-->
-    <?=$this->renderAjax('_header.php')?>
+    <?=$this->render('_header.php')?>
 
     <!--    контент     -->
     <div style="padding: 10px">
@@ -157,29 +141,19 @@ $count_messages=0;
     </div>
 
     <!--    ФУТЕР   -->
-    <?=$this->renderAjax('_footer.php')?>
+    <?=$this->render('_footer.php')?>
 
 <script>
     function link(i){ document.location.href = "<?php echo Yii::$app->request->baseUrl; ?>/"+i; }
 
+    /*
     window.onload = function(){
-        // появление надписи - Создать турнир
-        $('#menuPlus').on("mouseenter", function(){
-            $('#menuMsgCreateT').text('(cоздать турнир)');
-        });
-        $('#menuPlus').on("mouseleave", function(){
-            $('#menuMsgCreateT').text('');
-        });
 
-        // появление надписи - Избранные турниры
-        $('#menuLink').on("mouseenter", function(){
-            $('#menuMsgLink').text('(избранные турниры)');
-        });
-        $('#menuLink').on("mouseleave", function(){
-            $('#menuMsgLink').text('');
-        });
-    }
+
+    };
+    */
 </script>
+
 
 <?php $this->endBody() ?>
 </body>

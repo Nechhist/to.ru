@@ -17,9 +17,10 @@ class ChatmainController extends Controller
     public function actionAjaxenterchatmain()
     {
         if(isset($_GET['text']) && $_GET['text'] != NULL) {
+            $_GET['text'] = substr($_GET['text'], 0, 254);
             if(!Yii::$app->user->isGuest){
                 // проверка на спам.
-                $check = Chatmain::findOne(['admin' => Yii::$app->user->id]);
+                $check = Chatmain::findOne(['admin_id' => Yii::$app->user->id]);
                 if($check && $check['time'] < time() - 10){
                     // создание новой записи
                     $model = new Chatmain();

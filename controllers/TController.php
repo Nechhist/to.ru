@@ -7,7 +7,9 @@ use app\models\T;
 use app\models\Season;
 //use app\models\User;
 use app\models\Msgs;
+use yii\base\Exception;
 use yii\helpers\Html;
+use yii\web\HttpException;
 
 
 class TController extends \yii\web\Controller
@@ -19,21 +21,26 @@ class TController extends \yii\web\Controller
         return $this->render('index', ['ts'=>$ts]);
     }
 
-    public function actionUpdate($id=null)
+    public function actionUpdate($id = null)
     {
         $t = T::findOne($id);
 
-        if($t!=null AND $t['admin_id']==Yii::$app->user->id){
-            if($t->load(Yii::$app->request->post())){
+        if ($t != null && $t['admin_id'] == Yii::$app->user->id) {
+
+            if ($t->load(Yii::$app->request->post())) {
                 $t->update();
                 return $this->render('view', [
-                    't'=>$t,
-                    'seasons'=>Season::find()->where(['t_id'=>$id])->all(),
-                    'msgs'=>Msgs::find()->where(['unit_type'=>1, 'unit_id'=>$t['id']])->orderBy('id DESC')->limit(50)->all(),
+                    't' => $t,
+                    'seasons' => Season::find()->where(['t_id' => $id])->all(),
+                    'msgs' => Msgs::find(['unit_type'=>1 ,'unit_id'=>$id])->orderBy('id DESC')->limit(50)->all(),
                 ]);
             }
-            return $this->render('update', ['t'=>$t, 'seasons'=>Season::find()->where(['t_id'=>$id])->all()]);
-        }else echo 'Ошибка';
+            return $this->render('update', [
+                't' => $t,
+                'seasons' => Season::find()->where(['t_id' => $id])->all(),
+                'visitors' => $this->getCountVisitors($id)
+            ]);
+        } else throw new HttpException(404, "Не правильный id. Или Вы не админ");
     }
 
     public function actionUpdateseason($id=null)
@@ -95,7 +102,7 @@ class TController extends \yii\web\Controller
             $seasons = Season::find()->where(['t_id'=>$id, 'invisible'=>0])->all();
             $msgs = Msgs::find()->where(['unit_type'=>1 ,'unit_id'=>$id])->orderBy('id DESC')->limit(50)->all();
 
-            $this->CountVisitors($id);
+            $this->setCountVisitors($id);
 
             return $this->render('view', [
                 't'=>$t,
@@ -198,16 +205,45 @@ class TController extends \yii\web\Controller
         }else $this->redirect(Yii::$app->request->baseUrl . '/site/login'); //echo 'Ошибка! Вы гость! Гости не могут создавать турниры.';
     }
 
-    public function CountVisitors($id) {
-        //redis
-        if ($redis = Yii::$app->redis AND $redis->getIsActive() ) {
-            $redis->incr('visitors:idt:'.$id);
+    //////////////// R E D I S //////////////////////////////////////////////////////////
+    // visitors_all:id:1 - всего всех посетителей
+    // visitors_uni:id:1 - всего уникальных посетителей
+    // uniques:id:1:ip:192.168.1.1 - посетитель с ip 192.168.1.1 на турнире с id 1
 
-            if($redis->hexists('uniques:idt:'.$id, $_SERVER["REMOTE_ADDR"])==true){
-                $count_unique = $redis->hget('uniques:idt:'.$id, $_SERVER["REMOTE_ADDR"]);
-                $redis->hmset('uniques:idt:'.$id, $_SERVER["REMOTE_ADDR"], $count_unique+1);
+    /**
+     * создать нового визитера
+     * @param $id - id турнира
+     */
+    public function setCountVisitors($id) {
+
+        // если редис инициирован и соединение установлено
+        if ($redis = Yii::$app->redis AND $redis->getIsActive() ) {
+
+            // инкримент всех пользователей
+            $redis->incr('visitors_all:id:'.$id);
+
+            // проверка на наличие унакалього пользователя
+            if($redis->hexists('uniques:id:' . $id . ':ip:' . $_SERVER["REMOTE_ADDR"]) != true){
+                // создаем уникального пользователя
+                $redis->hmset('uniques:id:' . $id . ':ip:' . $_SERVER["REMOTE_ADDR"], 1);
+                // инкримент уникальных пользователей
+                $redis->incr('visitors_uni:id:'.$id);
             }
             else $redis->hmset('uniques:idt:'.$id, $_SERVER["REMOTE_ADDR"], '1');
         }
     }
+
+    public function getCountVisitors($id) {
+
+        $visitors = [];
+
+        // если редис инициирован и соединение установлено
+        if ($redis = Yii::$app->redis AND $redis->getIsActive() ) {
+            // берем визиторов
+            $visitors['all'] = $redis->hget('visitors_all:id:' . $id);
+            $visitors['uni'] = $redis->hget('visitors_uni:id:' . $id);
+        }
+        return $visitors;
+    }
+    //////////////// конец редис ////////////////////////////////////////////////////////
 }

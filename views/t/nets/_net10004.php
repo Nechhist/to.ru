@@ -1,9 +1,6 @@
 <!--  ======== СТРАНИЦА =============================================================== -->
 
 
-
-
-
 <div class="net">
     <table style="border-spacing: 0;">
         <tr id="tr0">   <th class="th1"></th>             <th class="th2"></th>       <?php echo $l['1/4'] ?>       <th class="th2"></th>       <?php echo $l['1/2'] ?>     <th class="th2"></th>       <?php echo $l['win_top'] ?><th class="th2"></th>      <th class="th1"></th>       <th class="th2"></th>       <th class="th1"></th></tr>
