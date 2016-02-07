@@ -46,15 +46,17 @@ $count_links = $my_link + $my_t;
                         <table class="header-table-small">
                             <td onclick="link('site/index')">Главная</td>
                             <td onclick="link('t')">Турниры</td>
-                            <td onclick="link('t/create')"><strong>+</strong></td>
+                            <td onclick="link('t/create')" id="menuPlus"><strong>+</strong></td>
+                            <!-- пустая ячейка -->
+                            <th><span id="menuMsgCreateT" style="color: cornflowerblue ; font-weight: lighter; margin-left: 5px" ></span></th>
                             <!-- <td onclick="link('user/index')">Пользователи</td> -->
                         </table>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xm-12" style="align-items: right">
                         <!-- таблица правого меню -->
                         <table class="header-table-small" align="right">
-                            <th style="border: 1px solid <?=Yii::$app->params['color']['table_bg_dark']?>; cursor: default;background-color: <?=Yii::$app->params['color']['table_bg_dark']?>;"></th> <!-- пустая ячейка -->
-                            <td onclick="link('link')"><span id="count_links"><?php echo $count_links; ?></span></td>
+                            <th><span id="menuMsgLink" style="color: cornflowerblue ; font-weight: lighter; margin-right: 5px" ></span></th>
+                            <td onclick="link('link')" id="menuLink"><span id="count_links"><?php echo $count_links; ?></span></td>
                             <?php if(!Yii::$app->user->isGuest){ ?>
                                 <td class="header_td_link" onclick="alert('Раздел НАСТРОЙКИ ПОЛЬЗОВАТЕЛЯ врененно в разработке')"><?php echo User::name(Yii::$app->user->id); ?></td>
                                 <td class="header_td_link" onclick="link('site/logout')">Выход</td>

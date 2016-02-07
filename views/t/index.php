@@ -8,22 +8,21 @@ $this->title = 'Турниры | '.Yii::$app->name;
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-8">
-            <input type="text" id="text_search_t" style="width: 150px" placeholder="Название турнира..." />
-            <button onclick="search_t()"> Найти турнир </button>
-            <p></p>
-            <div id="result_search_t"></div>
-        </div>
-        <div class="col-lg-3">
-            <span onclick= <?php if(!Yii::$app->user->isGuest){ ?> 'document.location.href = "<?php echo Yii::$app->request->baseUrl; ?>/t/create";' <?php }else{ ?>'alert("Вы должны зарегистрироваться.")'<?php } ?> class="button_creat_tournament">
-                Создать свой турнир
-            </span>
-        </div>
+        <input type="text" id="text_search_t" style="width: 250px" placeholder="Название турнира..." />
+        <button onclick="search_t()"  class="button_creat_tournament">
+            Найти турнир
+        </button>
+
+        <button onclick= <?php if(!Yii::$app->user->isGuest){ ?> 'document.location.href = "<?php echo Yii::$app->request->baseUrl; ?>/t/create";' <?php }else{ ?>'alert("Вы должны зарегистрироваться.")'<?php } ?> class="button_creat_tournament">
+            Создать свой турнир
+        </button>
+
+        <div id="result_search_t"></div>
     </div>
 
-    <div class="row tbl_t">
-            <h2 style="margin: 0; padding: 0">Последние созданные турниры</h2>
-            <table style="width: 100%">
+    <div class="row" style="margin-top: 15px">
+        <h2 style="margin: 5px; padding: 5px">Последние созданные турниры</h2>
+            <table class="tbl_t" style="width: 100%">
                 <thead>
                     <td>ID</td>
                     <td>Название</td>
@@ -34,23 +33,15 @@ $this->title = 'Турниры | '.Yii::$app->name;
                 <tbody>
                 <?php foreach($ts as $one){ ?>
                     <tr>
-                            <td><?php echo $one->id; ?></td>
-                            <td><a href="<?php echo Yii::$app->request->baseUrl; ?>/t/view/<?php echo $one['id'] ?>" ><?php echo HTML::encode($one->name); ?></a></td>
-                            <td><?php echo HTML::encode($one->game); ?></td>
-                            <td><?php echo User::name($one->admin_id); ?></td>
-                            <td><?php echo date('d.m.y в H:i', $one->time); ?></td>
+                        <td><?php echo $one->id; ?></td>
+                        <td><a href="<?php echo Yii::$app->request->baseUrl; ?>/t/view/<?php echo $one['id'] ?>" ><?php echo HTML::encode($one->name); ?></a></td>
+                        <td><?php echo HTML::encode($one->game); ?></td>
+                        <td><?php echo User::name($one->admin_id); ?></td>
+                        <td><?php echo date('d.m.y в H:i', $one->time); ?></td>
                     </tr>
                 <?php } ?>
                 </tbody>
             </table>
-    </div>
-
-
-
-        </div>
-        <div class="row">
-
-        </div>
     </div>
 </div>
 
@@ -63,7 +54,7 @@ $this->title = 'Турниры | '.Yii::$app->name;
         if(text!=null){
             $.ajax({
                 type: "GET",
-                url: "<?php echo \Yii::$app->urlManager->createUrl(['t/ajaxsearcht']) ?>",
+                url: "<?php echo \Yii::$app->urlManager->createUrl(['t/ajaxsearch']) ?>",
                 data: "text="+text,
                 success: function(data){
                     $('#result_search_t').html(data);

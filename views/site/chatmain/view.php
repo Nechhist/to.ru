@@ -64,7 +64,7 @@
      var text = $('#text_chat').val();
      $.ajax({
      type: "GET",
-     url: '<?php echo \Yii::$app->urlManager->createUrl(['chatmain/ajaxenterchatmain']); ?>',
+     url: '<?php //echo \Yii::$app->urlManager->createUrl(['chatmain/ajaxenterchatmain']); ?>',
      data: "text="+text,
      success: function(data){
      //alert(data);

@@ -104,25 +104,27 @@ $count_messages=0;
 
 
         .desc_field{ /* ОПИСАНИЕ ВОЗЛЕ ПОЛЕЙ НАСТРОЙКИ */
+            font-size: small;
+            font-weight: normal;
             color: #808080;
         }
 
 
         .button_creat_tournament { /******* кнопка создать свой турнир ******/
-            margin: 5px;
-            padding: 5px;
+            margin: 1px 5px;
+            padding: 1px 5px;
             background-color: <?=Yii::$app->params['color']['link_bg_dark']?>;
             cursor: pointer;
             color: #ffffff;
             font-weight: bold;
-            width: 100px;
-            height: 30px;
-            border: 2px solid <?=Yii::$app->params['color']['table_bg_dark']?> ;
+            height: 28px;
+            border: 2px solid <?=Yii::$app->params['color']['table_bg_dark']?>
         }
 
         .button_creat_tournament:hover {
             background-color: <?=Yii::$app->params['color']['bg']?>;
             color: <?=Yii::$app->params['color']['link_bg_dark']?>;
+            border: 2px solid <?=Yii::$app->params['color']['table_bg_dark']?> ;
         }
 
         .tbl_setting{
@@ -135,12 +137,11 @@ $count_messages=0;
             font-style: italic;
         }
 
-        .button_create{
-            width: 250px;
-            height: 30px;
-            font-size: large;
-            font-weight: bold;
+        .red{
+            color: red;
+            font-style: italic;
         }
+
     </style>
     <?php $this->head() ?>
 </head>
@@ -160,6 +161,24 @@ $count_messages=0;
 
 <script>
     function link(i){ document.location.href = "<?php echo Yii::$app->request->baseUrl; ?>/"+i; }
+
+    window.onload = function(){
+        // появление надписи - Создать турнир
+        $('#menuPlus').on("mouseenter", function(){
+            $('#menuMsgCreateT').text('(cоздать турнир)');
+        });
+        $('#menuPlus').on("mouseleave", function(){
+            $('#menuMsgCreateT').text('');
+        });
+
+        // появление надписи - Избранные турниры
+        $('#menuLink').on("mouseenter", function(){
+            $('#menuMsgLink').text('(избранные турниры)');
+        });
+        $('#menuLink').on("mouseleave", function(){
+            $('#menuMsgLink').text('');
+        });
+    }
 </script>
 
 <?php $this->endBody() ?>

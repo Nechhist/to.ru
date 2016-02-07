@@ -20,7 +20,7 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => Yii::t('app', 'Имя (логин)'),
+            'username' => Yii::t('app', 'Имя'),
             'email' => Yii::t('app', 'Email'),
             'password' => Yii::t('app', 'Пароль'),
             'password_repeat' => Yii::t('app', 'Пароль (повтор)'),
@@ -42,7 +42,7 @@ class SignupForm extends Model
             ['email', 'email'],
             //['email', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('app','Ошибка регистрации! Этот емаил уже задействован.')],
             [['password','password_repeat'], 'required'],
-            [['password','password_repeat'], 'string', 'min' => 1],
+            [['password','password_repeat'], 'string', 'min' => 1, 'max' => 250],
             [['password'], 'in', 'range'=>['password','Password','Password123','letmein','monkey'] ,'not'=>true, 'message'=>Yii::t('app', 'Ошибка регистрации! Пароль слишком легкий... Придумайте другой.')],
             ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message' => Yii::t("app", "Ошибка регистрации! Пароль должен совпарать!")],
             ['verifyCode', 'captcha'],

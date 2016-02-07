@@ -15,7 +15,7 @@ class TController extends \yii\web\Controller
 
     public function actionIndex()
     {
-        $ts = T::find()->orderBy('id DESC')->limit(30)->all();
+        $ts = T::find(['invisible' => 0])->orderBy('id DESC')->limit(50)->all();
         return $this->render('index', ['ts'=>$ts]);
     }
 
@@ -155,30 +155,31 @@ class TController extends \yii\web\Controller
     }
 
 
-    public function actionAjaxsearcht(){
-        if(isset($_GET['text'])){
-            $ts = T::find()->where(['like','name', $_GET['text']])->all();
-            if($ts!=null){
-                foreach($ts as $one){
-                    echo '<a href="'.Yii::$app->urlManager->createUrl(['t/view']).'/'.$one['id'].'">'.$one['name'].'</a> (ID#'.$one['id'].')<br />';
-                }
-            }else echo 'не найдено...';
-        }else echo 'не получены данные...';
+    public function actionAjaxsearch(){
+        if(isset($_GET['text']) AND $_GET['text'] != null){
+            if(strlen($_GET['text']) > 3) {
+                $ts = T::find()->where(['like','name', $_GET['text']])->limit(200)->orderBy('id DESC')->all();
+                echo $this->renderAjax('_resultSearch.php', ['ts' => $ts]);
+            }else echo 'Строка запроса не может быть меньше 4 символов';
+        }else echo 'Пустой запрос...';
     }
 
 
     public function actionCreate(){
 
         if(!Yii::$app->user->isGuest){
-            $ts = T::find()->where(['admin_id'=>Yii::$app->user->id])->all();
+            // турниры пользователя
+            $ts = T::find()->where(['admin_id'=>Yii::$app->user->id])->orderBy('id DESC')->all();
+
             $model = new T();
             if($model->load(Yii::$app->request->post())){
-                $tlast = array_pop($ts);
-                if($tlast['time'] > time()-60*60*12){
+                if(isset($ts[0]) && $ts[0]['time'] > time()-60*60*3){
                     echo '
-                    Вы пытаетесь создать еще один турнир, но Вы недавно (в '.date('H.i', $tlast['time']).') уже создали турнир '.HTML::encode($tlast['name']).'.
-                    Ждите 12 часов с момента последнего создания турнира, чтоб создать новый турнир,
-                    или используйте прошлый турнир (например измените его имя).';
+                    <h2 style="color: red; text-align: center">
+                    Вы недавно (в '.date('H.i', $ts[0]['time']).' мск.) уже создали турнир '.HTML::encode($ts[0]['name']).'.
+                    <br />Извините, у нас ограничение на создание: один турнир в 3 часа.
+                    </h2>
+                    ';
                 }else{
                     $model->time = time();
                     if(trim($model->name)==null) $model->name = 'Tournament X';
@@ -194,7 +195,7 @@ class TController extends \yii\web\Controller
                 }
             }
             return $this->render('create', ['model'=>$model,'ts'=>$ts]);
-        }else echo 'Ошибка! Вы гость! Гости не могут создавать турниры.';
+        }else $this->redirect(Yii::$app->request->baseUrl . '/site/login'); //echo 'Ошибка! Вы гость! Гости не могут создавать турниры.';
     }
 
     public function CountVisitors($id) {
