@@ -5,7 +5,6 @@
 
 <!------------------------- ВВОДНАЯ ИНФОРМАЦИЯ О ТУРНИРЕ ----------------------------->
 
-
 <table class="t_tbl_info">
     <tr>
 
@@ -16,9 +15,13 @@
 
         <!-- Название турнира - Игра -->
         <td style="padding: 5px 30px; text-align: center; width: 200px;">
-            <span style="font-weight: bold; font-size: x-large"><?php echo HTML::encode($t['name']); ?></span>
+            <span style="font-weight: bold; font-size: x-large">
+                <?php echo HTML::encode($t['name']); ?>
+            </span>
             <br /><br />
-            <span><?php if($t['game']!=null) echo '('.HTML::encode($t['game']).')'; ?></span>
+            <span>
+                <?php if($t['game']!=null) echo '('.HTML::encode($t['game']).')'; ?>
+            </span>
         </td>
         <td>
 

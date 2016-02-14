@@ -30,7 +30,7 @@ $count_messages = 0;
 
     <style>
         div {
-            border: 1px solid red;
+            --border: 1px solid red;
         }
 
         body{
@@ -125,6 +125,51 @@ $count_messages = 0;
             color: red;
             font-style: italic;
         }
+
+
+        /************* таблица сообщений от пользователей ***********/
+        .tbl_head_msgs{
+            background-color: #39b3d7;
+            width: 100%
+        }
+
+        .tbl_head_msgs th{
+            font-size: larger;
+            text-align: left;
+            padding: 3px;
+        }
+
+        .tbl_head_msgs td{
+            font-size: large;
+            color: #666666;
+            text-align: right;
+            padding: 3px;
+        }
+
+        .tbl_msgs{
+            width: 100%;
+        }
+
+        .tbl_msgs th{
+            padding: 5px;
+            margin: 5px;
+            border: 2px solid #c0c0c0;
+            text-align: center;
+            width: 120px;
+            vertical-align: top;
+        }
+
+        .tbl_msgs td{
+            padding: 5px;
+            margin: 5px;
+            border: 2px solid #c0c0c0;
+            text-align: left;
+            vertical-align: top;
+        }
+        /********** конец таблица сообщений от пользователей ******************/
+
+
+
 
     </style>
     <?php $this->head() ?>

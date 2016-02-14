@@ -16,8 +16,8 @@ if(trim($t['img'])==null) $t['img'] = Yii::$app->request->baseUrl.'/images/logo_
 $this->title = Html::encode($t['name']).' | '.Html::encode($season['name']);
 ?>
 
-
 <style>
+    /********************* конец страница вид турниров ************************/
     .t_tbl_info{
         width: 100%;
         margin: 0;
@@ -44,7 +44,7 @@ $this->title = Html::encode($t['name']).' | '.Html::encode($season['name']);
     }
 
     .net td{
-        height: 25px;
+        height: 32px;
         text-align: center;
     }
 
@@ -64,7 +64,7 @@ $this->title = Html::encode($t['name']).' | '.Html::encode($season['name']);
         font-size: 20px;
         font-weight: bold;
         width: 180px;
-        padding: 2px;
+        padding: 1px;
 
     }
 
@@ -113,9 +113,14 @@ $this->title = Html::encode($t['name']).' | '.Html::encode($season['name']);
         font-weight: bold;
         width: 15%;
     }
+
+    <?php if($t->admin_id == Yii::$app->user->id) { ?>
+    .td_unit:hover, .td_time:hover, .td_score:hover{
+        background-color: burlywood;
+    }
+    <?php } ?>
+    /********************** конец страница вид турниров ***********************/
 </style>
-
-
 
 
 <table style="width: 100%; background-color: #e38d13; padding-left: 5px; text-align: center; margin-bottom: 20px; margin-top: 20px;">
@@ -244,7 +249,7 @@ $s['time3place'] = '<td class="td_time" id="'.$season['id'].'time3place" ondblcl
 
 
 /////////////////////////  подключаемая сетка турнира  ///////////////////
-echo $this->render('_net'.$season['net_type'], ['l'=>$l, 's'=>$s,]); ?>
+echo $this->render('nets/_net'.$season['net_type'], ['l'=>$l, 's'=>$s,]); ?>
 </div>
 
 

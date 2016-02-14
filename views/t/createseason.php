@@ -61,49 +61,13 @@ $this->title = 'Создание турнирной сетки | '.Yii::$app->na
 
     <p><br /></p>
 
-    <style>
-        .tbl_nets{
-            width: 100%;
-        }
-
-        .tbl_nets td{
-            margin: 5px;
-            padding: 5px;
-            text-align: center;
-            border: 1px solid #000000;
-        }
-    </style>
-
-    <h3>Сравнительная таблица "Виды турнирных сеток"</h3>
-    <table class="tbl_nets">
-        <tr>
-            <th>Название</th>
-            <th>Описание</th>
-            <th>Тип</th>
-            <th>Кол-во участников</th>
-            <th>3 место</th>
-            <th>Сетка лузеров</th>
-            <th>Пример</th>
-        </tr>
-        <?php
-        foreach(Season::nets() as $one){ ?>
-            <tr>
-                <td><?php echo $one['name'] ?></td>
-                <td><?php echo $one['opisanie'] ?></td>
-                <td><?php if($one['type']==1) echo 'Дерево'; if($one['type']==2) echo 'Группы'; if($one['type']==2) echo 'Круговая'; ?></td>
-                <td><?php echo $one['count'] ?></td>
-                <td><?php if($one['3place']==1) echo 'есть';  if($one['3place']==0) echo 'нет'; ?></td>
-                <td><?php if($one['luser']==1) echo 'есть';  if($one['luser']==0) echo 'нет'; ?></td>
-                <td><a href="<?php echo Yii::$app->urlManager->createUrl(['t/season', 'id'=>$one['example']]); ?>" target="_blank">смотреть пример</td>
-            </tr>
-        <?php } ?>
-    </table>
+    <?php echo $this->render('allnets') ?>
 
 </div>
 
 
 <script>
     function openOtherParamSeason(){
-        $('#divOtherParamSeason').show();
+        $('#divOtherParamSeason').toggle();
     }
 </script>

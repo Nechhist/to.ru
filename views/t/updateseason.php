@@ -89,35 +89,54 @@ $this->title = 'Изменение '.HTML::encode($season['name']).'('.HTML::enc
     }
 </style>
 
+<div class="container">
 
-<hr />
+<h2>Изменения главной информации сетки "<?php echo $season->name ?>" (<a href="<?php echo Yii::$app->urlManager->createUrl(['t/view', 'id'=>$t['id']]); ?>"><?php echo $t->name; ?></a>)</h2>
+
 <?php $form = ActiveForm::begin(); ?>
-    <table style="width: 100%; vertical-align: top;">
-        <tr>
-            <td>
-                <h2>Изменения в сезоне "<?php echo $season->name ?>" (<a href="<?php echo Yii::$app->urlManager->createUrl(['t/view', 'id'=>$t['id']]); ?>"><?php echo $t->name; ?></a>)</h2>
-                <p><?= $form->field($season, 'name')->textInput(['size'=>'16', 'maxlength'=>'16']) ?>  <span class="desc_field" >максимально 16 символов. Пример: "Сезон 1", "Этап четвертый"...</span>
-                <p><?= $form->field($season, 'time_action')->textInput(['size'=>'20', 'maxlength'=>'20']) ?>  <span class="desc_field" >максимально 20 символов. Пример: "20-24 августа", "20.08.16 - 24.08.16"...</span>
-                <p><?= $form->field($season, 'net_type')->dropDownList(Season::nets(2)); ?>
-            </td>
-            <td>
-                <p style="color: #808080; text-align: right;">Время создания: <?php echo date("d.m.Y в H:i", $season['time']); ?>. Сетка: <?php echo Season::nets(1, $season['net_type']); ?>.</p>
-                <p><?= $form->field($season, 'score_open')->dropDownList(['0'=>'не показывать', '1'=>'показывать']) ?>
-                <p><?= $form->field($season, 'invisible')->dropDownList(['0'=>'виден всем', '1'=>'скрыть']) ?>
-                <p><?= $form->field($season, 'unit_type')->dropDownList(['0'=>'ничего не указывать', '1'=>'игроки', '2'=>'команды']) ?>
-                <p><?= $form->field($season, 'zayavka_open')->dropDownList(['0'=>'закрыт', '1'=>'открыт']) ?>
-                <p><?= $form->field($season, 'label')->dropDownList(['0'=>'не показывать', '1'=>'показывать']) ?>
-            </td>
-        </tr>
-    </table>
+
+    <p>
+        <?= $form->field($season, 'name')
+            ->textInput(['size'=>'10', 'maxlength'=>'10', 'placeholder'=>'Season 1'])
+            ->label('Название турнирной сетки <span class="desc_field" >(максимально 10 символов. Пример: "Сезон 2", "Этап четвертый")</span>') ?>
+    </p>
+    <p>
+        <?= $form->field($season, 'time_action')
+            ->textInput(['size'=>'20', 'maxlength'=>'20', 'placeholder'=>'01.01.16-03.01.16'])
+            ->label('Время проведения <span class="desc_field" >(необязательно к заполнению, максимально 20 символов. Пример: "20-24 августа")</span>') ?>
+    </p>
+    <p>
+        <?= $form->field($season, 'net_type')
+            ->dropDownList(Season::nets(2))
+            ->label('Вид турнирной сетки <span style="color: red">(все виды сеток Вы можете посмотреть ' . Html::a('здесь','/t/allnets', ['target'=>'_blank']) . ')</span>') ?>
+    </p>
+
+    <p>
+        <a onclick="openOtherParamSeason()" style="cursor: pointer">Другие параметры (развернуть)</a>
+    </p>
+    <div id="divOtherParamSeason" style="display: none">
+        <p>
+            <?= $form->field($season, 'unit_type')->dropDownList(['0'=>'ничего не указывать', '1'=>'игроки', '2'=>'команды']) ?>
+        </p>
+        <p>
+            <?= $form->field($season, 'score_open')->dropDownList(['0'=>'не показывать', '1'=>'показывать']) ?>
+        </p>
+        <p>
+            <?= $form->field($season, 'invisible')->dropDownList(['0'=>'виден всем', '1'=>'видет только по ссылке']) ?>
+        </p>
+        <p>
+            <?= $form->field($season, 'zayavka_open')->dropDownList(['0'=>'закрыт', '1'=>'открыт']) ?>
+        </p>
+    </div>
 
     <p>
         <?= Html::submitButton('Сохранить изменения в сезоне', ['class' => 'button_create']) ?>
     </p>
-<?php ActiveForm::end(); ?>
+<?php //ActiveForm::end(); ?>
+
+</div>
 
 <hr />
-<span style="color: grey; font-style: italic ; font-size: smaller;">(прежде чем делать изменения в турниной сетке, сохраните изменения сезона)</span>
 
 <?php
 
@@ -125,7 +144,7 @@ $l = [];//label названия над ячейками
 $l['winner'] = '<span class="td_label">Победитель</span>';
 $l['place3'] = '<span class="td_label">3 место</span>';
 
-$form = ActiveForm::begin();
+//$form = ActiveForm::begin();
 
 $s = []; // аррай сезона
 
@@ -193,25 +212,24 @@ $s['time3place'] = '<td class="td_time">'.$form->field($season, 'time3place')->t
 ?>
 
 
-<table style="width: 100%">
-    <tr>
-        <td>
+<div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xm-12">
             <h2>Изменения в турнирной сетке</h2>
-        </td>
-        <td style="width: 50%;">
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-12 col-xm-12">
             <span style="color: #39b3d7; font-size: small; font-style: italic;">
                 <strong>У:</strong> участник (максимум 12 символов). Пример, "Team Arbuzzz"<br />
                 <strong>В:</strong> время/др.информация (максимум 20 символов). Пример, "20 апр. после 21.00" или "у TMP тех.луз" или "207:150"
             </span>
             <br />
-            <span style="color: red; font-style: italic ; font-size: smaller;">
+            <span style="color: red; font-size: smaller;">
                 (Вы админ и можете быстро изменять название команд и содержимое ячеек
                 <strong>на главной странице турнира</strong> -
                 просто перейдите на страницу турнира и два раза кликните мышью на ячейку)
             </span>
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+</div>
 
 <?php echo $this->render('nets/_update_net'.$season->net_type, ['s'=>$s]); ?>
 
@@ -223,3 +241,9 @@ $s['time3place'] = '<td class="td_time">'.$form->field($season, 'time3place')->t
 <?php ActiveForm::end(); ?>
 
 <hr />
+
+<script>
+    function openOtherParamSeason(){
+        $('#divOtherParamSeason').toggle();
+    }
+</script>

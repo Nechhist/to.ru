@@ -21,6 +21,7 @@
 
 
 <style>
+    /********************* конец страница вид турниров ************************/
     .t_tbl_info{
         width: 100%;
         margin: 0;
@@ -47,7 +48,7 @@
     }
 
     .net td{
-        height: 25px;
+        height: 32px;
         text-align: center;
     }
 
@@ -67,7 +68,7 @@
         font-size: 20px;
         font-weight: bold;
         width: 180px;
-        padding: 2px;
+        padding: 1px;
 
     }
 
@@ -102,7 +103,7 @@
 
     .td_unit0{
         background-color: <?php echo $color_cell ?>;
-        //border: <?php echo $line; ?>;
+    //border: <?php echo $line; ?>;
         color: <?php echo $color_text_unit; ?>;
         font-size: 18px;
         font-weight: bold;
@@ -110,12 +111,19 @@
     }
 
     .td_score{
-        //border: <?php echo $line; ?>;
+    //border: <?php echo $line; ?>;
         background-color: <?php echo $color_cell; ?>;
         color:  <?php echo $color_text_unit; ?>;
         font-weight: bold;
         width: 15%;
     }
+
+    <?php if($t->admin_id == Yii::$app->user->id) { ?>
+    .td_unit:hover, .td_time:hover, .td_score:hover{
+        background-color: burlywood;
+    }
+    <?php } ?>
+    /********************** конец страница вид турниров ***********************/
 </style>
 
 
@@ -380,63 +388,17 @@ foreach($seasons as $season){
 
 
 
-
-
 <!-- ----------- M S G S  сообщения от пользователей ----------- -->
-<style>
-    .tbl_head_msgs{
-        background-color: #39b3d7;
-        width: 100%
-    }
 
-    .tbl_head_msgs th{
-        font-size: larger;
-        text-align: left;
-        padding: 3px;
-    }
-
-    .tbl_head_msgs td{
-        font-size: large;
-        color: #666666;
-        text-align: right;
-        padding: 3px;
-    }
-
-    .tbl_msgs{
-        width: 100%;
-    }
-
-    .tbl_msgs th{
-        padding: 5px;
-        margin: 5px;
-        border: 2px solid #c0c0c0;
-        text-align: center;
-        width: 1px;
-        vertical-align: top;
-    }
-
-    .tbl_msgs td{
-        padding: 5px;
-        margin: 5px;
-        border: 2px solid #c0c0c0;
-        text-align: left;
-        vertical-align: top;
-    }
-</style>
-
-
-
-<div>
     <table class="tbl_head_msgs">
         <tr>
             <th>Сообщения от пользователей</th>
             <td>Всего: <?php echo count($msgs); ?></td>
         </tr>
     </table>
-
     <table style="width: 100%">
         <tr>
-            <td style="width: 50%; padding: 10px; border: 2px solid #39b3d7; vertical-align: top;">
+            <td style="width: 60%; padding: 10px; border: 2px solid #39b3d7; vertical-align: top;">
                 <table id="msgs" class="tbl_msgs">
                     <?php foreach($msgs as $one){ ?>
                         <tr>
@@ -446,7 +408,7 @@ foreach($seasons as $season){
                     <?php } ?>
                 </table>
             </td>
-            <td style="width: 50%; padding: 10px; vertical-align: top;">
+            <td style="width: 40%; padding: 10px; vertical-align: top;">
                 <div>
                     <textarea id="text_msg" placeholder="Введите новое сообщение... <?php if(Yii::$app->user->isGuest) echo '(Вы гость, поэтому сообщение не сохраниться...)'; ?>" rows="3" style="width: 99%"></textarea><br />
                     <button onclick="enter_msg()" style="width: 100%; text-align: center;"> Отправить сообщение</button>
@@ -454,7 +416,6 @@ foreach($seasons as $season){
             </td>
         </tr>
     </table>
-</div>
 
 
 <script src='http://5.63.152.110:1984/socket.io/socket.io.js'></script>

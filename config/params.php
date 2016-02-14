@@ -8,6 +8,7 @@ $bgcolor5 = '#39b3d7'; // обводка внешней линии таблиц
 
 return [
     'closeServer' => 0,
+
     'color' => [
         'bg' => $bgcolor1,
 
@@ -19,5 +20,13 @@ return [
         'table_bg_dark' => $bgcolor3,
         'table_bg_light' => $bgcolor2,
     ],
+
+    'typeContact' => [
+        0 => 'не важно',
+        1 => 'пожелание',
+        2 => 'предложение',
+        3 => 'жалоба',
+    ],
+
     'adminEmail' => 'admin@example.com',
 ];

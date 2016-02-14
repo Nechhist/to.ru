@@ -97,29 +97,6 @@ class SiteController extends Controller
     }
 
 
-    /*
-    public function OLD_actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
-    */
-
-
-    public function actionContact()
-    {
-        return $this->render('contact');
-    }
-
-
     public function actionAbout()
     {
         return $this->render('about');
@@ -159,6 +136,22 @@ class SiteController extends Controller
         ->send();
 
     }
+
+
+    public function OLD_actionContact()
+    {
+        $model = new ContactForm();
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+            Yii::$app->session->setFlash('contactFormSubmitted');
+
+            return $this->refresh();
+        } else {
+            return $this->render('contact', [
+                'model' => $model,
+            ]);
+        }
+    }
+
     */
 }
 

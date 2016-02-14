@@ -9,6 +9,9 @@ $config = [
     'charset' => 'UTF-8',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'modules' => [
+        'admin' => ['class' => 'app\modules\admin\AdminModule'],
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -77,20 +80,21 @@ $config = [
         'redis' => [
             'class' => 'yii\redis\Connection',
             'hostname' => '5.63.152.110',
-            'port' => 6379,
+            'port' => 1991,
             'database' => 0,
+            'password' => '3lo(0,1)'
         ],
     ],
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
+//if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = 'yii\debug\Module';
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';
-}
+//}
 
 return $config;

@@ -7,8 +7,9 @@
 
 $this->title = 'Страница не найдена | '.Yii::$app->name;
 ?>
-<div class="site-error">
-
-    <h1>Страница не найдена</h1>
-
+<div class="container">
+    <div class="site-error">
+        <h1>Страница не найдена</h1>
+    </div>
 </div>
+
