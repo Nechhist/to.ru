@@ -274,4 +274,5 @@ class User extends ActiveRecord implements IdentityInterface
 
         return $firstEmail == "luke@pixelpin.co.uk";
     }
+
 }

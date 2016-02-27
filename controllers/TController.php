@@ -29,6 +29,8 @@ class TController extends \yii\web\Controller
 
         if ($t != null && $t['admin_id'] == Yii::$app->user->id) {
 
+            $visitors = $this->getCountVisitors($id);
+
             if ($t->load(Yii::$app->request->post())) {
                 $t->update();
                 return $this->render('view', [
@@ -40,12 +42,10 @@ class TController extends \yii\web\Controller
             return $this->render('update', [
                 't' => $t,
                 'seasons' => Season::find()->where(['t_id' => $id])->all(),
-                'visitors' => $this->getCountVisitors($id)
+                'visitors' => $visitors,
             ]);
         } else throw new HttpException(404, "Не правильный id. Или Вы не админ");
     }
-
-
 
 
     public function actionView($id=null)
@@ -75,11 +75,11 @@ class TController extends \yii\web\Controller
 
             $model = new T();
             if($model->load(Yii::$app->request->post())){
-                if(isset($ts[0]) && $ts[0]['time'] > time()-60*60*3){
+                if(isset($ts[0]) && $ts[0]['time'] > time()-60*30){
                     echo '
                     <h2 style="color: red; text-align: center">
                     Вы недавно (в '.date('H.i', $ts[0]['time']).' мск.) уже создали турнир '.HTML::encode($ts[0]['name']).'.
-                    <br />Извините, у нас ограничение на создание: один турнир в 3 часа.
+                    <br />Извините, у нас ограничение на создание: один турнир в полчаса.
                     </h2>
                     ';
                 }else{

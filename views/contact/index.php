@@ -5,6 +5,9 @@ use yii\widgets\ActiveForm;
 use app\models\User;
 
 $this->title = 'Обратная связь | '.Yii::$app->name;
+$this->registerMetaTag(['name' => 'keywords', 'content' => 'Турнир онлайн, удобные турнирные сетки']);
+$this->registerMetaTag(['name' => 'description', 'content' => 'Обратная связь с создателями сайта']);
+
 ?>
 
 <div class="container">
@@ -50,7 +53,7 @@ $this->title = 'Обратная связь | '.Yii::$app->name;
         <div class="col-lg-5 col-md-5 col-sm-5 col-xm-12">
             <h3>Контакты:</h3>
             <p>
-                По общим вопросам обращайтесь к <a href="https://vk.com/nechhist">С. Шевцов</a>.
+                По общим вопросам обращайтесь к <a href="https://vk.com/rabbit_died">С. Шевцов</a>.
             </p>
             <p>
                 По вопросам разрабитки к <a href="https://vk.com/nechhist">А. Нечистый</a>.

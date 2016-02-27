@@ -5,13 +5,17 @@ use app\models\User;
 use app\models\Season;
 
 $this->title = 'Создание турнирной сетки | '.Yii::$app->name;
+$this->registerMetaTag(['name' => 'keywords', 'content' => 'Турнир онлайн, турнирные сетки']);
+$this->registerMetaTag(['name' => 'description', 'content' => 'Создание турнирной сетки']);
+
 ?>
 
 <div class="container">
 
     <div class="row" style="border: 3px solid #39b3d7; margin: 5px; padding: 10px;">
 
-        <h2>Создание турнирной сетки (для <a href="<?php echo Yii::$app->urlManager->createUrl(['t/view', 'id'=>$t['id']]); ?>"><?php echo $t->name; ?></a>)</h2>
+        <h2>Создание турнирной сетки (для <?=Html::a(Html::encode($t->name), '/' . $t['id'])?>)
+        </h2>
 
         <div class="red">(Все параметры Вы можете впоследствии многократно изменять)</div>
 
@@ -20,7 +24,7 @@ $this->title = 'Создание турнирной сетки | '.Yii::$app->na
         <p>
             <?= $form->field($season, 'name')
                 ->textInput(['size'=>'10', 'maxlength'=>'10', 'placeholder'=>'Season 1'])
-                ->label('Название турнирной сетки <span class="desc_field" >(максимально 10 символов. Пример: "Сезон 2", "Этап четвертый")</span>') ?>
+                ->label('Название турнирной сетки / сезона <span class="desc_field" >(максимально 10 символов. Пример: "Сезон 2", "Этап четвертый")</span>') ?>
         </p>
         <p>
             <?= $form->field($season, 'time_action')

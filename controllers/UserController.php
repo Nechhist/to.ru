@@ -27,7 +27,7 @@ class UserController extends Controller
     }
 
 
-
+    /*
     public function actionIndex()
     {
         $users = User::find()->orderBy('id DESC')->limit(25)->all();
@@ -77,14 +77,14 @@ class UserController extends Controller
         }else echo 'Ошибка id не соврадают!';
     }
 
-    /*
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
-    */
+
 
     protected function findModel($id)
     {
@@ -94,4 +94,5 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    */
 }

@@ -66,6 +66,41 @@ $config = [
             'showScriptName' => false,
             'rules'=>[
                 [
+                    'pattern' => 'rules',
+                    'route' => 'site/rules',
+                    'suffix' => ''
+                ],
+                [
+                    'pattern' => 'signup',
+                    'route' => 'site/signup',
+                    'suffix' => ''
+                ],
+                [
+                    'pattern' => 'logout',
+                    'route' => 'site/logout',
+                    'suffix' => ''
+                ],
+                [
+                    'pattern' => 'login',
+                    'route' => 'site/login',
+                    'suffix' => ''
+                ],
+                [
+                    'pattern' => '<id:\d+>',
+                    'route' => 't/view',
+                    'suffix' => ''
+                ],
+                [
+                    'pattern' => 'update/<id:\d+>',
+                    'route' => 't/update',
+                    'suffix' => ''
+                ],
+                [
+                    'pattern' => 'season/<id:\d+>',
+                    'route' => 't/season',
+                    'suffix' => ''
+                ],
+                [
                     'pattern' => '<controller>/<action>/<id:\d+>',
                     'route' => '<controller>/<action>',
                     'suffix' => ''

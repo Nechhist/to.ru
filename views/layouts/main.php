@@ -188,17 +188,6 @@ $count_messages = 0;
     <!--    ФУТЕР   -->
     <?=$this->render('_footer.php')?>
 
-<script>
-    function link(i){ document.location.href = "<?php echo Yii::$app->request->baseUrl; ?>/"+i; }
-
-    /*
-    window.onload = function(){
-
-
-    };
-    */
-</script>
-
 
 <?php $this->endBody() ?>
 </body>

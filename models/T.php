@@ -75,13 +75,45 @@ class T extends \yii\db\ActiveRecord
         ];
     }
 
-    public static  function name($id, $a=0){
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+
+            $this->img = str_replace (['http://', 'https://'], '', $this->img);
+            $this->img = trim($this->img);
+
+            $this->site = str_replace (['http://', 'https://'], '', $this->site);
+            $this->site = trim($this->site);
+
+            if (empty($this->img)) {
+                $this->img = 'http://tournamentonline.pro/images/logo_t.png';
+            } else {
+                $this->img = 'http://' .  $this->img;
+            }
+
+            if (!empty($this->site)) {
+                $this->site = 'http://' .  $this->site;
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param $id - id турнира
+     * @param int $a - включить ссылку
+     * @return string
+     */
+    public static  function name($id, $a = 0){
         if($id==0) return '<i>Неизвестный</i>';
 
         $t = T::findOne(['id' => $id]);
-        if($t==null) return '<i>==не_найден==</i>';
-        if($a==0) return HTML::encode($t['name']);
-        if($a==1) return '<a href="'.Yii::$app->request->baseUrl.'/t/view/'.$t['id'].'">'.HTML::encode($t['name']).'</a>';
+
+        if($t == null) return '<i>==не_найден==</i>';
+        if($a == 0) return HTML::encode($t['name']);
+        if($a == 1) return '<a href="'.Yii::$app->request->baseUrl.'/'.$t['id'].'">'.HTML::encode($t['name']).'</a>';
         return '<i>==нет_параметра==</i>';
     }
 }

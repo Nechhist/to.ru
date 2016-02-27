@@ -138,7 +138,9 @@
 <!-- Ц И К Л   Т У Р Н И Р Н Ы Х    С Е Т О К -->
 <div style="min-height: 350px;">
 <?php
+
 $counter = 1; // счетчик сезонов
+
 foreach($seasons as $season){
 
     // делаем все сетки невидимыми, но последнюю сетку видимой
@@ -156,7 +158,7 @@ foreach($seasons as $season){
             <tr>
                 <td style="text-align: left; padding-left: 5px;">
                     <span style="">
-                        <span style="cursor: pointer; " onclick="document.location.href = '<?php echo \Yii::$app->urlManager->createUrl(['t/season']) ?>/<?php echo $season['id']; ?>';">
+                        <span style="cursor: pointer; " onclick="document.location.href = '<?php echo \Yii::$app->urlManager->createUrl(['/season']) ?>/<?php echo $season['id']; ?>';">
                             <?php echo HTML::encode($season['name']); ?>
                         </span>
                         <?php if(trim($season['time_action'])!=null) echo '('.HTML::encode($season['time_action']).')'; ?>
@@ -259,22 +261,49 @@ foreach($seasons as $season){
             $s['unit3place3'] = '<td class="td_unit">'.$season['unit3place3'].'</td>';
         }
 
+        ////////// SCORE //////////////////////////////////////////////
 
         if(Season::nets()[$season['net_type']]['type']==2){
+
+            $s['score_a1'] = '<td class="td_score" id="' . $season['id'] . 'score_a1" ondblclick="notSendFromGroupCellScore()">' . ($season['score1'] + $season['score2'] + $season['score3']) . '</td>';
+            $s['score_a2'] = '<td class="td_score" id="' . $season['id'] . 'score_a2" ondblclick="notSendFromGroupCellScore()">' . ($season['score4'] + $season['score5'] + $season['score6']) . '</td>';
+            $s['score_a3'] = '<td class="td_score" id="' . $season['id'] . 'score_a3" ondblclick="notSendFromGroupCellScore()">' . ($season['score7'] + $season['score8'] + $season['score9']) . '</td>';
+            $s['score_a4'] = '<td class="td_score" id="' . $season['id'] . 'score_a4" ondblclick="notSendFromGroupCellScore()">' . ($season['score10'] + $season['score11'] + $season['score12']) . '</td>';
+
+            $s['score_b1'] = '<td class="td_score" id="' . $season['id'] . 'score_b1" ondblclick="notSendFromGroupCellScore()">' . ($season['score13'] + $season['score14'] + $season['score15']) . '</td>';
+            $s['score_b2'] = '<td class="td_score" id="' . $season['id'] . 'score_b2" ondblclick="notSendFromGroupCellScore()">' . ($season['score16'] + $season['score17'] + $season['score18']) . '</td>';
+            $s['score_b3'] = '<td class="td_score" id="' . $season['id'] . 'score_b3" ondblclick="notSendFromGroupCellScore()">' . ($season['score19'] + $season['score20'] + $season['score21']) . '</td>';
+            $s['score_b4'] = '<td class="td_score" id="' . $season['id'] . 'score_b4" ondblclick="notSendFromGroupCellScore()">' . ($season['score22'] + $season['score23'] + $season['score24']) . '</td>';
+
+            $s['score_c1'] = '<td class="td_score" id="' . $season['id'] . 'score_c1" ondblclick="notSendFromGroupCellScore()">' . ($season['score25'] + $season['score26'] + $season['score27']) . '</td>';
+            $s['score_c2'] = '<td class="td_score" id="' . $season['id'] . 'score_c2" ondblclick="notSendFromGroupCellScore()">' . ($season['score28'] + $season['score29'] + $season['score30']) . '</td>';
+            $s['score_c3'] = '<td class="td_score" id="' . $season['id'] . 'score_c3" ondblclick="notSendFromGroupCellScore()">' . ($season['score31'] + $season['score32'] + $season['sscore1']) . '</td>';
+            $s['score_c4'] = '<td class="td_score" id="' . $season['id'] . 'score_c4" ondblclick="notSendFromGroupCellScore()">' . ($season['sscore2'] + $season['sscore3'] + $season['sscore4']) . '</td>';
+
+            $s['score_d1'] = '<td class="td_score" id="' . $season['id'] . 'score_d1" ondblclick="notSendFromGroupCellScore()">' . ($season['sscore5'] + $season['sscore6'] + $season['sscore7']) . '</td>';
+            $s['score_d2'] = '<td class="td_score" id="' . $season['id'] . 'score_d2" ondblclick="notSendFromGroupCellScore()">' . ($season['sscore8'] + $season['sscore9'] + $season['sscore10']) . '</td>';
+            $s['score_d3'] = '<td class="td_score" id="' . $season['id'] . 'score_d3" ondblclick="notSendFromGroupCellScore()">' . ($season['sscore11'] + $season['sscore12'] + $season['sscore13']) . '</td>';
+            $s['score_d4'] = '<td class="td_score" id="' . $season['id'] . 'score_d4" ondblclick="notSendFromGroupCellScore()">' . ($season['sscore14'] + $season['sscore15'] + $season['sscore16']) . '</td>';
+
+            $s['score_f1'] = '<td class="td_score" id="' . $season['id'] . 'score_f1" ondblclick="notSendFromGroupCellScore()">' . ($season['ssscore1'] + $season['ssscore2'] + $season['ssscore3']) . '</td>';
+            $s['score_f2'] = '<td class="td_score" id="' . $season['id'] . 'score_f2" ondblclick="notSendFromGroupCellScore()">' . ($season['ssscore4'] + $season['ssscore5'] + $season['ssscore6']) . '</td>';
+            $s['score_f3'] = '<td class="td_score" id="' . $season['id'] . 'score_f3" ondblclick="notSendFromGroupCellScore()">' . ($season['ssscore7'] + $season['ssscore8'] + $season['sssscore1']) . '</td>';
+            $s['score_f4'] = '<td class="td_score" id="' . $season['id'] . 'score_f4" ondblclick="notSendFromGroupCellScore()">' . ($season['sssscore2'] + $season['sssscore3'] + $season['sssscore4']) . '</td>';
+
             for($i=1; $i<=32; $i++){
-                $s['score'.$i] = $season['score'.$i];
+                $s['score'.$i] = '<td class="td_score" id="'.$season['id'].'score'.$i.'" ondblclick="update_cell_s'.$season['id'].'(\'score'.$i.'\')">'.$season['score'.$i].'</td>';
             }
 
             for($i=1; $i<=16; $i++){
-                $s['sscore'.$i] = $season['sscore'.$i];
+                $s['sscore'.$i] = '<td class="td_score" id="'.$season['id'].'sscore'.$i.'" ondblclick="update_cell_s'.$season['id'].'(\'sscore'.$i.'\')">'.$season['sscore'.$i].'</td>';
             }
 
             for($i=1; $i<=8; $i++){
-                $s['ssscore'.$i] = $season['ssscore'.$i];
+                $s['ssscore'.$i] = '<td class="td_score" id="'.$season['id'].'ssscore'.$i.'" ondblclick="update_cell_s'.$season['id'].'(\'ssscore'.$i.'\')">'.$season['ssscore'.$i].'</td>';
             }
 
             for($i=1; $i<=4; $i++){
-                $s['sssscore'.$i] = $season['sssscore'.$i];
+                $s['sssscore'.$i] = '<td class="td_score" id="'.$season['id'].'sssscore'.$i.'" ondblclick="update_cell_s'.$season['id'].'(\'sssscore'.$i.'\')">'.$season['ssscore'.$i].'</td>';
             }
         }
 
@@ -305,12 +334,16 @@ foreach($seasons as $season){
 
 
     <script>
+        /// JS повторяется для каждой сетки /// Д Е Р Е В О
+
+        <?php //проверка на тип сетки, Для каждого типа сетки должен изменяться свои ячейки
+        if (Season::nets()[$season['net_type']]['type'] == 1){ ?>
 
         // ---------- функция для изменения ячеек ----------------------
         function update_cell_u<?php echo $season['id']; ?>(cell){
             <?php if($season['admin_id']==Yii::$app->user->id){ ?>
             var msgOld = $('#<?php echo $season['id']; ?>'+cell).text();
-            var msg = prompt('(не более 12 символов) Изменить на...', msgOld);
+            var msg = prompt('Имя участника (не более 12 символов) изменить на...', msgOld);
             if(msg!=null){
                 msg = msg.toString().substr(0, 12);
                 //alert(msg);
@@ -332,7 +365,7 @@ foreach($seasons as $season){
         function update_cell_t<?php echo $season['id']; ?>(cell){
             <?php if($season['admin_id']==Yii::$app->user->id){ ?>
             var msgOld = $('#<?php echo $season['id']; ?>'+cell).text();
-            var msg = prompt('(не более 16 символов) Изменить на...', msgOld);
+            var msg = prompt('Доп. информация (не более 16 символов) изменить на...', msgOld);
             if(msg!=null){
                 msg = msg.toString().substr(0, 16);
                 //alert(msg);
@@ -354,7 +387,7 @@ foreach($seasons as $season){
         function update_cell_s<?php echo $season['id']; ?>(cell){
             <?php if($season['admin_id']==Yii::$app->user->id){ ?>
             var msgOld = $('#<?php echo $season['id']; ?>'+cell).text();
-            var msg = prompt('(не более 3 символов) Изменить на...', msgOld);
+            var msg = prompt('Баллы (не более 3 символов) изменить на...', msgOld);
             if(msg!=null){
                 msg = msg.toString().substr(0, 3);
                 //alert(msg);
@@ -371,18 +404,102 @@ foreach($seasons as $season){
             }
             <?php } ?>
         }
+        <?php } ?>
+
+
+        <?php // проверка на тип сетки // Г Р У П П А
+
+        if (Season::nets()[$season['net_type']]['type'] == 2){ ?>
+
+        // ---------- функция для изменения ячеек ЮНИТЫ----------------------
+        function update_cell_u<?php echo $season['id']; ?>(cell){
+            <?php if($season['admin_id']==Yii::$app->user->id){ ?>
+            var msgOld = $('#<?php echo $season['id']; ?>'+cell).text();
+            var msg = prompt('Имя участника (не более 12 символов) изменить на...', msgOld);
+            if(msg!=null){
+                msg = msg.toString().substr(0, 12);
+                //alert(cell);exit;
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo \Yii::$app->urlManager->createUrl(['t/ajaxupdatecell']) ?>/<?php echo $season['id']; ?>",
+                    data: "cell="+cell+"&msg="+msg,
+                    success: function(data){
+                        //alert(data);
+                        $('#<?php echo $season['id']; ?>'+cell).html(data);
+                        socket.emit('unit', data, <?php echo $season['id']; ?>, cell);
+                        socket.emit('unit', data, <?php echo $season['id']; ?>, cell + '_1');
+                        socket.emit('unit', data, <?php echo $season['id']; ?>, cell + '_2');
+                        socket.emit('unit', data, <?php echo $season['id']; ?>, cell + '_3');
+                    }
+                })
+            }
+            <?php } ?>
+        }
+
+
+        // ---------- функция для изменения ячеек ВРЕМЯ----------------------
+        function update_cell_t<?php echo $season['id']; ?>(cell){
+            <?php if($season['admin_id']==Yii::$app->user->id){ ?>
+            var msgOld = $('#<?php echo $season['id']; ?>'+cell).text();
+            var msg = prompt('Доп. информация (не более 16 символов) изменить на...', msgOld);
+            if(msg!=null){
+                msg = msg.toString().substr(0, 16);
+                //alert(msg);
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo \Yii::$app->urlManager->createUrl(['t/ajaxupdatecell']) ?>/<?php echo $season['id']; ?>",
+                    data: "cell="+cell+"&msg="+msg,
+                    success: function(data){
+                        //alert(data);
+                        $('#<?php echo $season['id']; ?>'+cell).html(data);
+                        socket.emit('unit', data, <?php echo $season['id']; ?>, cell);
+                    }
+                })
+            }
+            <?php } ?>
+        }
+
+
+        // ---------- функция для изменения ячеек ОЧКИ ----------------------
+        function update_cell_s<?php echo $season['id']; ?>(cell){
+            <?php if($season['admin_id'] == Yii::$app->user->id){ ?>
+            var msgOld = $('#<?php echo $season['id']; ?>'+cell).text();
+            var msg = prompt('Баллы (не более 3 символов) изменить на...', msgOld);
+            if(msg != null){
+                msg = msg.toString().substr(0, 3);
+                //alert(msg);
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo \Yii::$app->urlManager->createUrl(['t/ajaxupdatecell']) ?>/<?php echo $season['id']; ?>",
+                    data: "cell="+cell+"&msg="+msg,
+                    success: function(data){
+                        //alert(data);
+                        $('#<?php echo $season['id']; ?>'+cell).html(data);
+                        socket.emit('unit', data, <?php echo $season['id']; ?>, cell);
+                        var cell_2 = getScoreCellFromHeadTable(cell,<?php echo $season['id']; ?>, msg);
+                        socket.emit('unit', data, <?php echo $season['id']; ?>, cell_2);
+                    }
+                });
+            }
+            <?php } ?>
+        }
+        <?php } ?>
     </script>
 
 <?php } ?>
 
-<?php if($t['admin_id']==Yii::$app->user->id){
-        if($seasons==null){ ?>
+<?php
+    if ($t['admin_id'] == Yii::$app->user->id) {
+        if($seasons == null){ ?>
             <p style = 'color: red; text-align: right;' >Турнирные сетки не найдены! Нажмите <strong>(+) ДОБАВИТЬ НОВУЮ ТУРНИРНУЮ СЕТКУ</strong></p>
-        <?php }else{ ?>
+        <?php
+        } else {
+        ?>
             <p class="grey" style="text-align: right;">
                 Вы Админ и можете править ячейки "Участники" и "Время" два раза кликнув на них мышью.
             </p>
-<?php } }else echo '<p><br /></p>' ?>
+<?php   }
+    } else echo '<p><br /></p>' ?>
 
 </div>
 
@@ -390,39 +507,39 @@ foreach($seasons as $season){
 
 <!-- ----------- M S G S  сообщения от пользователей ----------- -->
 
-    <table class="tbl_head_msgs">
-        <tr>
-            <th>Сообщения от пользователей</th>
-            <td>Всего: <?php echo count($msgs); ?></td>
-        </tr>
-    </table>
-    <table style="width: 100%">
-        <tr>
-            <td style="width: 60%; padding: 10px; border: 2px solid #39b3d7; vertical-align: top;">
-                <table id="msgs" class="tbl_msgs">
-                    <?php foreach($msgs as $one){ ?>
-                        <tr>
-                            <th><?php echo User::name($one['admin_id']) ?><br/><span style="font-size: xx-small; color: #c0c0c0;">(<?php echo date('d.m.y', $one['time']) ?>)</th>
-                            <td><?php echo nl2br(HTML::encode($one['text'])) ?></td>
-                        </tr>
-                    <?php } ?>
-                </table>
-            </td>
-            <td style="width: 40%; padding: 10px; vertical-align: top;">
-                <div>
-                    <textarea id="text_msg" placeholder="Введите новое сообщение... <?php if(Yii::$app->user->isGuest) echo '(Вы гость, поэтому сообщение не сохраниться...)'; ?>" rows="3" style="width: 99%"></textarea><br />
-                    <button onclick="enter_msg()" style="width: 100%; text-align: center;"> Отправить сообщение</button>
-                </div>
-            </td>
-        </tr>
-    </table>
+<table class="tbl_head_msgs">
+    <tr>
+        <th>Сообщения от пользователей</th>
+        <td>Всего: <?php echo count($msgs); ?></td>
+    </tr>
+</table>
+<table style="width: 100%">
+    <tr>
+        <td style="width: 60%; padding: 10px; border: 2px solid #39b3d7; vertical-align: top;">
+            <table id="msgs" class="tbl_msgs">
+                <?php foreach($msgs as $one){ ?>
+                    <tr>
+                        <th><?php echo User::name($one['admin_id']) ?><br/><span style="font-size: xx-small; color: #c0c0c0;">(<?php echo date('d.m.y', $one['time']) ?>)</th>
+                        <td><?php echo nl2br(HTML::encode($one['text'])) ?></td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </td>
+        <td style="width: 40%; padding: 10px; vertical-align: top;">
+            <div>
+                <textarea id="text_msg" placeholder="Введите новое сообщение... <?php if(Yii::$app->user->isGuest) echo '(Вы гость, поэтому сообщение не сохраниться...)'; ?>" rows="3" style="width: 99%"></textarea><br />
+                <button onclick="enter_msg()" style="width: 100%; text-align: center;"> Отправить сообщение</button>
+            </div>
+        </td>
+    </tr>
+</table>
 
 
 <script src='http://5.63.152.110:1984/socket.io/socket.io.js'></script>
 <script> var socket = io.connect('http://5.63.152.110:1984');
 
 
-    ////////////////////////////         AVTOLOAD      ///////////////////////////
+    ////////////////////////////         AUTOLOAD      ///////////////////////////
     window.onload = function(){
 
         ////////////    трансляциии     /////////////////////////
@@ -447,6 +564,102 @@ foreach($seasons as $season){
 
     function add_link(){
         $('#link').load("<?php echo \Yii::$app->urlManager->createUrl(['link/ajaxaddlinkt']) ?>/<?php echo $t['id']; ?>");
+    }
+
+    function notSendFromGroupCell(){
+        alert('Ошибка! В этой ячейке имя участника автоматически подставляется ' +
+            'во время редактирования верхней таблицы участников (в шапке сетки).');
+    }
+
+    function notSendFromGroupCellScore(){
+        alert('Ошибка! В этой ячейке сумма баллоа автоматически подставляется ' +
+            'во время редактирования баллов в нижних гпупповых таблицах.');
+    }
+
+    // Баллы в ячейках score в верхней таблице-шапки в Групповой
+    function getScoreCellFromHeadTable(cell, season, data){
+        if (cell == 'score1' || cell == 'score2' || cell == 'score3') {
+            var sum = parseInt($('#' + season + 'score1').text()) +  parseInt($('#' + season + 'score2').text()) +  parseInt($('#' + season + 'score3').text());
+            $('#' + season + 'score_a1').html(sum);
+        }
+        if (cell == 'score4' || cell == 'score5' || cell == 'score6') {
+            var sum = parseInt($('#' + season + 'score4').text()) +  parseInt($('#' + season + 'score5').text()) +  parseInt($('#' + season + 'score6').text());
+            $('#' + season + 'score_a2').html(sum);
+        }
+        if (cell == 'score7' || cell == 'score8' || cell == 'score9') {
+            var sum = parseInt($('#' + season + 'score7').text()) +  parseInt($('#' + season + 'score8').text()) +  parseInt($('#' + season + 'score9').text());
+            $('#' + season + 'score_a3').html(sum);
+        }
+        if (cell == 'score10' || cell == 'score11' || cell == 'score12') {
+            var sum = parseInt($('#' + season + 'score10').text()) +  parseInt($('#' + season + 'score11').text()) +  parseInt($('#' + season + 'score12').text());
+            $('#' + season + 'score_a4').html(sum);
+        }
+        if (cell == 'score13' || cell == 'score14' || cell == 'score15') {
+            var sum = parseInt($('#' + season + 'score13').text()) +  parseInt($('#' + season + 'score14').text()) +  parseInt($('#' + season + 'score15').text());
+            $('#' + season + 'score_b1').html(sum);
+        }
+        if (cell == 'score16' || cell == 'score17' || cell == 'score18') {
+            var sum = parseInt($('#' + season + 'score16').text()) +  parseInt($('#' + season + 'score17').text()) +  parseInt($('#' + season + 'score18').text());
+            $('#' + season + 'score_b2').html(sum);
+        }
+        if (cell == 'score19' || cell == 'score20' || cell == 'score21') {
+            var sum = parseInt($('#' + season + 'score19').text()) +  parseInt($('#' + season + 'score20').text()) +  parseInt($('#' + season + 'score21').text());
+            $('#' + season + 'score_b3').html(sum);
+        }
+        if (cell == 'score22' || cell == 'score23' || cell == 'score24') {
+            var sum = parseInt($('#' + season + 'score22').text()) +  parseInt($('#' + season + 'score23').text()) +  parseInt($('#' + season + 'score24').text());
+            $('#' + season + 'score_b4').html(sum);
+        }
+        if (cell == 'score25' || cell == 'score26' || cell == 'score27') {
+            var sum = parseInt($('#' + season + 'score25').text()) +  parseInt($('#' + season + 'score26').text()) +  parseInt($('#' + season + 'score27').text());
+            $('#' + season + 'score_c1').html(sum);
+        }
+        if (cell == 'score28' || cell == 'score29' || cell == 'score30') {
+            var sum = parseInt($('#' + season + 'score28').text()) +  parseInt($('#' + season + 'score29').text()) +  parseInt($('#' + season + 'score30').text());
+            $('#' + season + 'score_c2').html(sum);
+        }
+        if (cell == 'score31' || cell == 'score32' || cell == 'sscore1') {
+            var sum = parseInt($('#' + season + 'score31').text()) +  parseInt($('#' + season + 'score32').text()) +  parseInt($('#' + season + 'sscore1').text());
+            $('#' + season + 'score_c3').html(sum);
+        }
+        if (cell == 'sscore2' || cell == 'sscore3' || cell == 'sscore4') {
+            var sum = parseInt($('#' + season + 'sscore2').text()) +  parseInt($('#' + season + 'sscore3').text()) +  parseInt($('#' + season + 'sscore4').text());
+            $('#' + season + 'score_c4').html(sum);
+        }
+        if (cell == 'sscore5' || cell == 'sscore6' || cell == 'sscore7') {
+            var sum = parseInt($('#' + season + 'sscore5').text()) +  parseInt($('#' + season + 'sscore6').text()) +  parseInt($('#' + season + 'sscore7').text());
+            $('#' + season + 'score_d1').html(sum);
+        }
+        if (cell == 'sscore8' || cell == 'sscore9' || cell == 'sscore10') {
+            var sum = parseInt($('#' + season + 'sscore8').text()) +  parseInt($('#' + season + 'sscore9').text()) +  parseInt($('#' + season + 'sscore10').text());
+            $('#' + season + 'score_d2').html(sum);
+        }
+        if (cell == 'sscore11' || cell == 'sscore12' || cell == 'sscore13') {
+            var sum = parseInt($('#' + season + 'sscore11').text()) +  parseInt($('#' + season + 'sscore12').text()) +  parseInt($('#' + season + 'sscore13').text());
+            $('#' + season + 'score_d3').html(sum);
+        }
+        if (cell == 'sscore14' || cell == 'sscore15' || cell == 'sscore16') {
+            var sum = parseInt($('#' + season + 'sscore14').text()) +  parseInt($('#' + season + 'sscore15').text()) +  parseInt($('#' + season + 'sscore16').text());
+            $('#' + season + 'score_d4').html(sum);
+        }
+        if (cell == 'ssscore1' || cell == 'ssscore2' || cell == 'ssscore3') {
+            var sum = parseInt($('#' + season + 'ssscore1').text()) +  parseInt($('#' + season + 'ssscore2').text()) +  parseInt($('#' + season + 'ssscore3').text());
+            $('#' + season + 'score_f1').html(sum);
+        }
+        if (cell == 'ssscore4' || cell == 'ssscore5' || cell == 'ssscore6') {
+            var sum = parseInt($('#' + season + 'ssscore4').text()) +  parseInt($('#' + season + 'ssscore5').text()) +  parseInt($('#' + season + 'ssscore6').text());
+            $('#' + season + 'score_f2').html(sum);
+        }
+        if (cell == 'ssscore7' || cell == 'ssscore8' || cell == 'sssscore1') {
+            var sum = parseInt($('#' + season + 'ssscore7').text()) +  parseInt($('#' + season + 'ssscore8').text()) +  parseInt($('#' + season + 'sssscore1').text());
+            $('#' + season + 'score_f3').html(sum);
+        }
+        if (cell == 'sssscore2' || cell == 'sssscore3' || cell == 'sssscore4') {
+            var sum = parseInt($('#' + season + 'sssscore2').text()) +  parseInt($('#' + season + 'sssscore3').text()) +  parseInt($('#' + season + 'sssscore4').text());
+            $('#' + season + 'score_f4').html(sum);
+        }
+
+        //return cell2
     }
 
 

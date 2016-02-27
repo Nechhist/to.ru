@@ -18,6 +18,7 @@ class NechhController extends \yii\web\Controller
         return $this->render('index');
     }
 
+    /*
     public function actionUpload()
     {
         $dir = Yii::getAlias('@app/web/uploads');
@@ -40,4 +41,5 @@ class NechhController extends \yii\web\Controller
             'dir' => $dir,
         ]);
     }
+    */
 }

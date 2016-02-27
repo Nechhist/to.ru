@@ -4,6 +4,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\Season;
+
 $this->title = 'Изменение турнира '.HTML::encode($t->name).' | '.Yii::$app->name;
 ?>
 
@@ -16,7 +17,6 @@ $this->title = 'Изменение турнира '.HTML::encode($t->name).' | '
         margin: 3px;
         padding: 3px;
         text-align: center;
-
     }
 </style>
 
@@ -24,7 +24,7 @@ $this->title = 'Изменение турнира '.HTML::encode($t->name).' | '
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xm-12" style="border: 3px solid #39b3d7;">
-            <h2>Изменение турнира <a href="<?php echo Yii::$app->urlManager->createUrl(['t/view', 'id'=>$t['id']]); ?>"><?php echo $t->name; ?></a></h2>
+            <h2>Изменение турнира <?=Html::a(Html::encode($t->name), '/' . $t->id)?></h2>
 
             <?php $form = ActiveForm::begin(); ?>
 
@@ -33,7 +33,8 @@ $this->title = 'Изменение турнира '.HTML::encode($t->name).' | '
             <p><?= $form->field($t, 'img')->textInput(['size'=>'50', 'maxlength'=>'500', 'placeholder'=>'https://pp.vk.me/c622017/v622017538/aa/J9LfE-7p8n0.jpg'])
                     ->label($t->attributeLabels()['img'] . ' <span class="desc_field" >(максимально 500 символов)</span>') ?>
             <span class="desc_field" >
-                Внимание, протокол "http://", "https://" вначале вначале ссылки писать обязателено.
+                Внимание, помните, что ссылки на изображения в VK, FB находящиеся в приватных альбомах могут быть видимы только Вами.
+                 Старайтесь вставлять, только надежные ссылки. (Также, админитрация имеет право насильно сменить ссылку на недозволенное изображение.)
             </span>
 
             <hr style="margin: 5px; padding: 5px;" />
@@ -59,9 +60,9 @@ $this->title = 'Изменение турнира '.HTML::encode($t->name).' | '
         <div class="col-lg-4 col-md-4 col-sm-4 col-xm-12" >
             <?php if($visitors != null) { ?>
             <p style="font-weight: bold; font-size: large; text-align: right;">
-                Все посетители: <?=$visitors['all']?>
+                Всего просмотров: <?=$visitors['all']?>
                 <br />
-                Уникальные посетители: <?=$visitors['uni']?>
+                Уник. посетителей: <?=$visitors['uni']?>
             </p>
             <hr style="border: 2px solid #808080" />
             <?php } ?>

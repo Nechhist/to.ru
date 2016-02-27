@@ -4,6 +4,9 @@ use app\models\User;
 use yii\helpers\Html;
 
 $this->title = 'Турниры | '.Yii::$app->name;
+$this->registerMetaTag(['name' => 'keywords', 'content' => 'Турнир онлайн, турнирные сетки, турниры']);
+$this->registerMetaTag(['name' => 'description', 'content' => 'Список и поиск турниров']);
+
 ?>
 
 <div class="container">
@@ -34,7 +37,7 @@ $this->title = 'Турниры | '.Yii::$app->name;
                 <?php foreach($ts as $one){ ?>
                     <tr>
                         <td><?php echo $one->id; ?></td>
-                        <td><a href="<?php echo Yii::$app->request->baseUrl; ?>/t/view/<?php echo $one['id'] ?>" ><?php echo HTML::encode($one->name); ?></a></td>
+                        <td><?=Html::a(HTML::encode($one->name), '/' . $one['id'])?></td>
                         <td><?php echo HTML::encode($one->game); ?></td>
                         <td><?php echo User::name($one->admin_id); ?></td>
                         <td><?php echo date('d.m.y в H:i', $one->time); ?></td>

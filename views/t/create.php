@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $this->title = 'Создание турнира | '.Yii::$app->name;
+$this->registerMetaTag(['name' => 'keywords', 'content' => 'Турнир онлайн, создание турнирных сеток']);
+$this->registerMetaTag(['name' => 'description', 'content' => 'Создание турнира']);
 ?>
 <div class="container">
 <div class=" row">
@@ -27,9 +29,7 @@ $this->title = 'Создание турнира | '.Yii::$app->name;
         <?php if($ts!=null){ ?>
             <?php foreach($ts as $one){ ?>
                 (ID <?php echo $one['id']; ?>)
-                <a href="<?php echo Yii::$app->request->baseUrl; ?>/t/view/<?php echo $one['id']; ?>">
-                    <?php echo HTML::encode($one['name']); ?>
-                </a>
+                <?=Html::a(HTML::encode($one['name']), '/' . $one['id'])?>
                 <br />
             <?php } ?>
         <?php }else{ ?>

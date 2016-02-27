@@ -97,11 +97,6 @@ class SiteController extends Controller
     }
 
 
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
 
     /* на будущее - письмо, при регистрации
     public function mailSingup($user){

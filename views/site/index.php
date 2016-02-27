@@ -6,7 +6,8 @@ use app\models\T;
 use app\models\User;
 
 $this->title = Yii::$app->name;
-//var_dump($news); exit;
+$this->registerMetaTag(['name' => 'keywords', 'content' => 'Турнир онлайн, турнирные сетки']);
+$this->registerMetaTag(['name' => 'description', 'content' => 'Турнир онлайн - это удобный сервис создания турнирных сеток']);
 ?>
 
 <div class="container">
@@ -21,7 +22,7 @@ $this->title = Yii::$app->name;
                     <td>ID</td>
                     <td>Турнир</td>
                     <td>Сезон</td>
-                    <td>Сетка</td>
+                    <td>Тип сетки</td>
                     <td>Создатель</td>
                     <td>Посл.изменение</td>
                     </thead>

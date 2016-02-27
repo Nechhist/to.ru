@@ -4,6 +4,9 @@ use app\models\User;
 use yii\helpers\Html;
 use app\models\T;
 $this->title = 'Избранные турниры | '.Yii::$app->name;
+$this->registerMetaTag(['name' => 'keywords', 'content' => 'Избранные турниры, Турнир онлайн, удобные турнирные сетки']);
+$this->registerMetaTag(['name' => 'description', 'content' => 'Ваши избранные турниры']);
+
 ?>
 
 <div class="container">
@@ -22,9 +25,7 @@ $this->title = 'Избранные турниры | '.Yii::$app->name;
                             <td><?php echo $i; $i++; ?>.</td>
                             <td>
                                 <?php if($one['link_type']==1){ ?>
-                                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/t/view/<?php echo $one['link_id']; ?>">
-                                        <?php echo T::name($one['link_id']); ?>
-                                    </a>
+                                    <?=Html::a(T::name($one['link_id']), '/' . $one['link_id'])?>
                                 <?php }else echo 'не турнир (link_type!=1)'; ?>
                             </td>
                             <td>
@@ -52,9 +53,7 @@ $this->title = 'Избранные турниры | '.Yii::$app->name;
                                 <?php echo $count_myt; $count_myt++; ?>.
                             </td>
                             <td>
-                                <a href="<?php echo Yii::$app->request->baseUrl; ?>/t/view/<?php echo $one['id']; ?>">
-                                    <?php echo T::name($one['id']); ?>
-                                </a>
+                                <?=Html::a(T::name($one['id']), '/' . $one['id'])?>
                             </td>
                         </tr>
                     <?php } ?>

@@ -30,7 +30,7 @@
                 <tr>
                     <td>
                         <strong>Админ: </strong><span style="color: #666666"><?php echo User::name($t['admin_id']); ?></span>.
-                        <?php if($t['site']!=null){ ?><strong>Сайт: </strong><a href="<?php echo $t['site']; ?>"><?php echo HTML::encode($t['site']); ?></a><?php } ?>
+                        <?php if($t['site']!=null){ ?><strong>Сайт: </strong><a href="<?php echo $t['site']; ?>" target="_blank"><?php echo HTML::encode($t['site']); ?></a><?php } ?>
                     </td>
                     <td style="text-align: right;">
                         <?php

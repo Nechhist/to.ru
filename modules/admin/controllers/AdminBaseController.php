@@ -8,7 +8,7 @@ class AdminBaseController extends Controller
 {
     public function init(){
 
-        if (Yii::$app->user->isGuest || Yii::$app->user->id >= 5) {
+        if (Yii::$app->user->isGuest || Yii::$app->user->id > 5) {
             die("Доступ закрыт! Вы не являетесь админом.");
         }
 
